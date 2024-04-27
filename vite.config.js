@@ -45,6 +45,33 @@ export default defineConfig({
           resolve(__dirname, "dist/json/tents.json"),
         );
       },
+    },
+    {
+      name: "copy-images-to-dist",
+      writeBundle() {
+        const destDir = resolve(__dirname, "dist/images");
+
+        if (!fs.existsSync(destDir)) {
+          fs.mkdirSync(destDir, { recursive: true });
+        }
+
+        fs.copyFileSync(
+          resolve(__dirname, "src/images/tents/cedar-ridge-rimrock-2.jpg"),
+          resolve(__dirname, "dist/images/tents/cedar-ridge-rimrock-2.jpg"),
+        );
+        fs.copyFileSync(
+          resolve(__dirname, "src/images/tents/marmot-ajax-3.jpg"),
+          resolve(__dirname, "dist/images/tents/marmot-ajax-3.jpg"),
+        );
+        fs.copyFileSync(
+          resolve(__dirname, "src/images/tents/northface-alpine-3.jpg"),
+          resolve(__dirname, "dist/images/tents/northface-alpine-3.jpg"),
+        );
+        fs.copyFileSync(
+          resolve(__dirname, "src/images/tents/northface-talus-4.jpg"),
+          resolve(__dirname, "dist/images/tents/northface-talus-4.jpg"),
+        );
+      },
     }
   ],
 });
