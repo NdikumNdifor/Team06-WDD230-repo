@@ -49,27 +49,51 @@ export default defineConfig({
     {
       name: "copy-images-to-dist",
       writeBundle() {
-        const destDir = resolve(__dirname, "dist/images");
+        const destDir = resolve(__dirname, "dist/images/tents");
 
         if (!fs.existsSync(destDir)) {
           fs.mkdirSync(destDir, { recursive: true });
         }
 
         fs.copyFileSync(
-          resolve(__dirname, "src/images/tents/cedar-ridge-rimrock-2.jpg"),
-          resolve(__dirname, "dist/images/tents/cedar-ridge-rimrock-2.jpg"),
+          resolve(
+            __dirname,
+            "src/images/tents/cedar-ridge-rimrock-tent-2-person-3-season-in-rust-clay~p~344yj_01~320.jpg",
+          ),
+          resolve(
+            __dirname,
+            "dist/images/tents/cedar-ridge-rimrock-tent-2-person-3-season-in-rust-clay~p~344yj_01~320.jpg",
+          ),
         );
         fs.copyFileSync(
-          resolve(__dirname, "src/images/tents/marmot-ajax-3.jpg"),
-          resolve(__dirname, "dist/images/tents/marmot-ajax-3.jpg"),
+          resolve(
+            __dirname,
+            "src/images/tents/marmot-ajax-tent-3-person-3-season-in-pale-pumpkin-terracotta~p~880rr_01~320.jpg",
+          ),
+          resolve(
+            __dirname,
+            "dist/images/tents/marmot-ajax-tent-3-person-3-season-in-pale-pumpkin-terracotta~p~880rr_01~320.jpg",
+          ),
         );
         fs.copyFileSync(
-          resolve(__dirname, "src/images/tents/northface-alpine-3.jpg"),
-          resolve(__dirname, "dist/images/tents/northface-alpine-3.jpg"),
+          resolve(
+            __dirname,
+            "src/images/tents/the-north-face-alpine-guide-tent-3-person-4-season-in-canary-yellow-high-rise-grey~p~985pr_01~320.jpg",
+          ),
+          resolve(
+            __dirname,
+            "dist/images/tents/the-north-face-alpine-guide-tent-3-person-4-season-in-canary-yellow-high-rise-grey~p~985pr_01~320.jpg",
+          ),
         );
         fs.copyFileSync(
-          resolve(__dirname, "src/images/tents/northface-talus-4.jpg"),
-          resolve(__dirname, "dist/images/tents/northface-talus-4.jpg"),
+          resolve(
+            __dirname,
+            "src/images/tents/the-north-face-talus-tent-4-person-3-season-in-golden-oak-saffron-yellow~p~985rf_01~320.jpg",
+          ),
+          resolve(
+            __dirname,
+            "dist/images/tents/the-north-face-talus-tent-4-person-3-season-in-golden-oak-saffron-yellow~p~985rf_01~320.jpg",
+          ),
         );
       },
     }
