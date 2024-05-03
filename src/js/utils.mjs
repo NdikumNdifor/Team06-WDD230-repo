@@ -21,11 +21,8 @@ export function setClick(selector, callback) {
   });
   qs(selector).addEventListener("click", callback);
 }
-
-export function renderListWithTemplate(templateFn, parentElement, list, position = "afterbegin", clear = false) {
-  if (clear === true) parentElement.innerHTML = "";
-  list.map((item) => {
-    const templateClone = templateFn(item);
-    parentElement.insertAdjacentHTML(position, templateClone)
-  })
+export function getParams(param) {
+  const queryString = window.location.search;
+  const urlParams = new URLSearchParams(queryString);
+  return urlParams.get(param);
 }
