@@ -1,7 +1,7 @@
 import { resolve } from "path";
 // eslint-disable-next-line import/namespace
 import { defineConfig } from "vite";
-import * as fs from "fs";
+// import * as fs from "fs";
 
 export default defineConfig({
   root: "src/",
