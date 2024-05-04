@@ -40,5 +40,13 @@ function cartItemTemplate(item) {
   return newItem;
 }
 
+//Add up the total and pass it to the html cart-total
+function calculateTotalPrice() {
+  const cartItems = getLocalStorage("so-cart");
+  const totalPrice = cartItems.reduce((acc, item) => acc + item.FinalPrice, 0);
+  document.getElementById("cart-total").textContent = `$${totalPrice}`;
+}
+calculateTotalPrice();
+
 renderCartContents();
 
