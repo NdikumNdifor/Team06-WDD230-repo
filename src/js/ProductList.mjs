@@ -1,5 +1,5 @@
 function productCardTemplate(product){
-    return `
+    let htmlProduct = `
     <li class="product-card">
         <a href="product_pages/index.html?product=${product.Id}">
         <img src="${product.Image}" alt="image of ${product.Name}">
@@ -8,6 +8,7 @@ function productCardTemplate(product){
         <p class="product-card__price">$${product.FinalPrice}</p>
         </a>
     </li>`;
+    return htmlProduct;
 }
 
 export default class ProductListing{
@@ -19,13 +20,16 @@ export default class ProductListing{
     }
 
     renderList(products){
-        let html = products.map(productCardTemplate);
-        this.listElement.innerHTML = html;
+        let html = products.filter(product => !(product.Image == null || product.Image == undefined));
+        html = html.map(productCardTemplate);
+        html.forEach(element => {
+            this.listElement.innerHTML += element;
+        });
+        
     }
 
     async init(){
         const list = await this.dataSource.getData();
         this.renderList(list);
-        
     }
 }
