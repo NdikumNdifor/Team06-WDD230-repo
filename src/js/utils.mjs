@@ -27,6 +27,7 @@ export function getParams(param) {
   return urlParams.get(param);
 }
 
+
 export function displayDiscount(product){
   if (product.SuggestedRetailPrice > product.FinalPrice){
     const discountAmount = (product.SuggestedRetailPrice - product.FinalPrice).toFixed(2)
@@ -43,4 +44,4 @@ export function renderListWithTemplate(templateFn, parentElement, list, position
     const itemHtml = templateFn(item);
     parentElement.insertAdjacentHTML(position, itemHtml);
   })
-}
+

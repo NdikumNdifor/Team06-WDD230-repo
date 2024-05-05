@@ -3,11 +3,11 @@ import { getLocalStorage } from "./utils.mjs";
 //get cart from local storage and verify if exists[has any item]
 function renderCartContents() {
   const cartItems = getLocalStorage("so-cart");
-  cartItems === null ? emptyCart()  : displayCart(cartItems);
+  cartItems === null ? emptyCart() : displayCart(cartItems);
 }
 
 //display an empty cart's message
-function emptyCart(){
+function emptyCart() {
   document.querySelector(".product-list").innerHTML = `
     <li>
       <h3>Sorry, you have no items in the cart!</h3>
@@ -15,10 +15,11 @@ function emptyCart(){
 }
 
 //map cart items into an appropriate displaying template
-function displayCart(cartItems){
+function displayCart(cartItems) {
   const htmlItems = cartItems.map((item) => cartItemTemplate(item));
   document.querySelector(".product-list").innerHTML = htmlItems.join("");
 }
+
 
 function cartItemTemplate(item) {
   const newItem = `<li class="cart-card divider">
@@ -39,4 +40,13 @@ function cartItemTemplate(item) {
   return newItem;
 }
 
+//Add up the total and pass it to the html cart-total
+function calculateTotalPrice() {
+  const cartItems = getLocalStorage("so-cart");
+  const totalPrice = cartItems.reduce((acc, item) => acc + item.FinalPrice, 0);
+  document.getElementById("cart-total").textContent = `$${totalPrice}`;
+}
+calculateTotalPrice();
+
 renderCartContents();
+

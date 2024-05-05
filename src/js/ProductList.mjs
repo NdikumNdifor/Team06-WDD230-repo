@@ -1,3 +1,4 @@
+
 import { renderListWithTemplate, displayDiscount } from "./utils.mjs"
 
 const productCardTemplate = (product) => 
@@ -34,3 +35,4 @@ export default class ProductListing {
     renderListWithTemplate(productCardTemplate, this.listElement, list); 
   }
 }
+
