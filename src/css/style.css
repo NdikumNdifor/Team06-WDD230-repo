@@ -173,6 +173,18 @@ button {
   font-size: var(--small-font);
   /* max-height: 120px; */
   align-items: center;
+  width: 100%;
+}
+.cart-card button {
+  width: 2rem;
+  height: 2rem;
+  color: var(--secondary-color);
+  background-color: var(--primary-color);
+  padding: .2rem;
+}
+
+.cart-card button:hover {
+  background-color: var(--tertiary-color);
 }
 
 .cart-card__image {
@@ -195,6 +207,7 @@ button {
 .cart-card__quantity {
   grid-row: 1;
   grid-column: 3;
+  display: flex;
 }
 
 .cart-card__price {
