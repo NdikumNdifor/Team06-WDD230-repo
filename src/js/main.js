@@ -1,8 +1,18 @@
 import ProductData from "./ProductData.mjs";
-import ProductList from "./ProductList.mjs";
 
-const dataSource = new ProductData("tents");
-const element = document.querySelector(".product-list");
-const listing = new ProductList("Tents", dataSource, element);
+import ProductListing from "./ProductList.mjs"
 
-listing.init();
+const main = async () => {
+  const category = "tents";
+  const dataSource = new ProductData(category);
+  const listElement = document.querySelector(".product-list")
+  const productList = new ProductListing(category, dataSource, listElement);
+  await productList.init();
+  const tents = productList.products;
+  const topFourTentIds = ["880RR", "985RF", "985PR", "344YJ"];
+  const topFourTents = tents.filter((product) => topFourTentIds.includes(product.Id))
+  productList.renderList(topFourTents);
+}
+
+main();
+

@@ -1,4 +1,4 @@
-import { getLocalStorage, setLocalStorage } from "./utils.mjs";
+import { getLocalStorage, setLocalStorage, displayDiscount } from "./utils.mjs";
 
 export default class ProductDetail {
   constructor(productId, dataSource) {
@@ -31,7 +31,7 @@ export default class ProductDetail {
           alt="${this.product.NameWithoutBrand}"
         />
 
-        <p class="product-card__price">$${this.product.FinalPrice}</p>
+        ${displayDiscount(this.product)}
 
         <p class="product__color">${this.product.Colors[0].ColorName}</p>
 
