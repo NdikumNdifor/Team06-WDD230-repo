@@ -1,5 +1,6 @@
 import { getLocalStorage, setLocalStorage } from "./utils.mjs";
 
+// Returns shopping cart items.
 function getCartItems() {
   return getLocalStorage("so-cart");
 }
@@ -26,7 +27,7 @@ function displayCart(cartItems) {
   document.querySelector(".product-list").innerHTML = htmlItems.join("");
 }
 
-//
+// Dynamically generates HTML for cart item.
 function cartItemTemplate(item) {
   const newItem = `
   <li class="cart-card divider">
@@ -47,13 +48,15 @@ function cartItemTemplate(item) {
   return newItem;
 }
 
+// Removes item from list and saves the list back to local storage.
 function removeItem(item) {
   const cartItems = getCartItems();
   const newItemsArray = cartItems.filter((cItem) => cItem.Id !== item);
   setLocalStorage("so-cart", newItemsArray);
 }
 
-function deleteClickHandlder(event) {
+// Handles remove item click event and verifies the that the delete button was clicked.
+function removeItemClickHandlder(event) {
   const element = event.target;
   if (element.classList.contains("delete-button")) {
     removeItem(element.id);
@@ -63,6 +66,7 @@ function deleteClickHandlder(event) {
 
 renderCartContents();
 
+// Adds event listener to product list element.
 document
   .querySelector(".product-list")
-  .addEventListener("click", deleteClickHandlder);
+  .addEventListener("click", removeItemClickHandlder);
