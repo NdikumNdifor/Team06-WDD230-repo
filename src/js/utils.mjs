@@ -44,4 +44,5 @@ export function renderListWithTemplate(templateFn, parentElement, list, position
     const itemHtml = templateFn(item);
     parentElement.insertAdjacentHTML(position, itemHtml);
   })
+}
 
