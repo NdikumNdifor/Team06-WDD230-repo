@@ -11,6 +11,7 @@ function renderCartContents() {
   cartItems === null || cartItems.length === 0
     ? emptyCart()
     : displayCart(cartItems);
+  calculateTotalPrice();
 }
 
 //display an empty cart's message
@@ -62,6 +63,13 @@ function removeItemClickHandlder(event) {
     removeItem(element.id);
     renderCartContents();
   }
+}
+
+//Add up the total and pass it to the html cart-total
+function calculateTotalPrice() {
+  const cartItems = getCartItems();
+  const totalPrice = cartItems.reduce((acc, item) => acc + item.FinalPrice, 0);
+  document.getElementById("cart-total").textContent = `$${totalPrice}`;
 }
 
 renderCartContents();

@@ -27,10 +27,21 @@ export function getParams(param) {
   return urlParams.get(param);
 }
 
+
+export function displayDiscount(product){
+  if (product.SuggestedRetailPrice > product.FinalPrice){
+    const discountAmount = (product.SuggestedRetailPrice - product.FinalPrice).toFixed(2)
+    return `<p class="product-card__price">$${product.FinalPrice}</p>
+    <p class="product-card__price">(Discounted $${discountAmount}!)</p>`
+  }else{
+    return `<p class="product-card__price">$${product.FinalPrice}</p>`
+  }
+}
+
 export function renderListWithTemplate(templateFn, parentElement, list, position = "afterbegin", clear = false) {
   if (clear === true) parentElement.innerHTML = "";
   list.map((item) => {
     const itemHtml = templateFn(item);
     parentElement.insertAdjacentHTML(position, itemHtml);
   })
-}
+
