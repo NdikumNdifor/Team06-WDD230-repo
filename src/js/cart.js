@@ -1,9 +1,17 @@
-import { getLocalStorage } from "./utils.mjs";
+import { getLocalStorage, setLocalStorage } from "./utils.mjs";
+
+// Returns shopping cart items.
+function getCartItems() {
+  return getLocalStorage("so-cart");
+}
 
 //get cart from local storage and verify if exists[has any item]
 function renderCartContents() {
-  const cartItems = getLocalStorage("so-cart");
-  cartItems === null ? emptyCart() : displayCart(cartItems);
+  const cartItems = getCartItems();
+  cartItems === null || cartItems.length === 0
+    ? emptyCart()
+    : displayCart(cartItems);
+  calculateTotalPrice();
 }
 
 //display an empty cart's message
@@ -20,33 +28,53 @@ function displayCart(cartItems) {
   document.querySelector(".product-list").innerHTML = htmlItems.join("");
 }
 
-
+// Dynamically generates HTML for cart item.
 function cartItemTemplate(item) {
-  const newItem = `<li class="cart-card divider">
-  <a href="#" class="cart-card__image">
-    <img
-      src="${item.Image}"
-      alt="${item.Name}"
-    />
-  </a>
-  <a href="#">
-    <h2 class="card__name">${item.Name}</h2>
-  </a>
-  <p class="cart-card__color">${item.Colors[0].ColorName}</p>
-  <p class="cart-card__quantity">qty: 1</p>
-  <p class="cart-card__price">$${item.FinalPrice}</p>
-</li>`;
+  const newItem = `
+  <li class="cart-card divider">
+    <a href="#" class="cart-card__image">
+      <img
+        src="${item.Image}"
+        alt="${item.Name}"
+      />
+    </a>
+    <a href="#">
+      <h2 class="card__name">${item.Name}</h2>
+    </a>
+    <p class="cart-card__color">${item.Colors[0].ColorName}</p>
+    <p class="cart-card__quantity"><span>qty: 1</span><button id="${item.Id}" class="delete-button">X</button></p>
+    <p class="cart-card__price">$${item.FinalPrice}</p>
+  </li>`;
 
   return newItem;
 }
 
+// Removes item from list and saves the list back to local storage.
+function removeItem(item) {
+  const cartItems = getCartItems();
+  const newItemsArray = cartItems.filter((cItem) => cItem.Id !== item);
+  setLocalStorage("so-cart", newItemsArray);
+}
+
+// Handles remove item click event and verifies the that the delete button was clicked.
+function removeItemClickHandlder(event) {
+  const element = event.target;
+  if (element.classList.contains("delete-button")) {
+    removeItem(element.id);
+    renderCartContents();
+  }
+}
+
 //Add up the total and pass it to the html cart-total
 function calculateTotalPrice() {
-  const cartItems = getLocalStorage("so-cart");
+  const cartItems = getCartItems();
   const totalPrice = cartItems.reduce((acc, item) => acc + item.FinalPrice, 0);
   document.getElementById("cart-total").textContent = `$${totalPrice}`;
 }
-calculateTotalPrice();
 
 renderCartContents();
 
+// Adds event listener to product list element.
+document
+  .querySelector(".product-list")
+  .addEventListener("click", removeItemClickHandlder);
