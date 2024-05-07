@@ -3,7 +3,7 @@ import { getLocalStorage } from "./utils.mjs";
 //display cart notification with itens quantity
 function displayCartItemsNotification(){
     const cartItems = getLocalStorage("so-cart");
-    if(cartItems !== null || cartItems !== undefined ){
+    if(cartItems != null || cartItems != undefined ){
       const cartDiv = document.querySelector(".cart");
       const badge = document.createElement("span");
       badge.style.backgroundColor = "var(--primary-color)";

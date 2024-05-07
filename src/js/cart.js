@@ -68,8 +68,13 @@ function removeItemClickHandlder(event) {
 //Add up the total and pass it to the html cart-total
 function calculateTotalPrice() {
   const cartItems = getCartItems();
-  const totalPrice = cartItems.reduce((acc, item) => acc + item.FinalPrice, 0);
-  document.getElementById("cart-total").textContent = `$${totalPrice}`;
+  if (cartItems != null || cartItems != undefined){
+    const totalPrice = cartItems.reduce((acc, item) => acc + item.FinalPrice, 0);
+    document.getElementById("cart-total").textContent = `$${totalPrice}`;
+  }
+  else{
+    document.getElementById("cart-total").textContent = `$0.00`;
+  }
 }
 
 renderCartContents();
