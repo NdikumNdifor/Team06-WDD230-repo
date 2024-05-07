@@ -1,7 +1,7 @@
 import { setLocalStorage } from "./utils.mjs";
 
 function productDetailsTemplate(product) {
-  return `<section class="product-detail"> <h3>${product.Brand.Name}</h3>
+  return `<section class="product-detail"><h3>${product.Brand.Name}</h3>
     <h2 class="divider">${product.NameWithoutBrand}</h2>
     <img
       class="divider"
@@ -35,19 +35,19 @@ export default class ProductDetails{
       // Notice the .bind(this). Our callback will not work if we don't include that line. Review the readings from this week on 'this' to understand why.
       document
         .getElementById("addToCart")
-        .addEventListener("click", this.addProductToCart.bind(this));
+        .addEventListener("click", this.addToCart.bind(this));
 
     }
 
-    addProductToCart(product) {
-        let customerCart = getLocalStorage("so-cart");
-        if (customerCart == null) {
-          customerCart = [];
-          customerCart.push(product);
-        } else {
-          customerCart.push(product);
-        }
-        setLocalStorage("so-cart", customerCart);
+    addToCart() {
+        // let customerCart = getLocalStorage("so-cart");
+        // if (customerCart == null) {
+        //   customerCart = [];
+        //   customerCart.push(this.product);
+        // } else {
+        //   customerCart.push(product);
+        // }
+        setLocalStorage("so-cart", this.product);
       }
     renderProductDetails(selector) {
       const element = document.querySelector(selector);
