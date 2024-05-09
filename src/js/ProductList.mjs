@@ -24,7 +24,7 @@ export default class ProductListing {
   }
 
   async init() {
-    this.data = await this.datasource.getData();
+    this.data = await this.datasource.getData(this.category);
   }
 
   get products() {
