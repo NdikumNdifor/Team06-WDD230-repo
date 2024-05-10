@@ -1,3 +1,5 @@
+import { displayCartItemsNotification } from "./cartSuperScript"
+
 // wrapper for querySelector...returns matching element
 export function qs(selector, parent = document) {
   return parent.querySelector(selector);
@@ -46,30 +48,39 @@ export function renderListWithTemplate(templateFn, parentElement, list, position
   })
 }
 
-//  DYNAMIC HEADER AND FOOTER 
-
-// function to take an optional object and a template and insert the objects as HTML into the DOM
-export function renderWithTemplate(templateFn, parentElement, data, callback) {
-    parentElement.insertAdjacentHTML("afterbegin", templateFn);
-    //if there is a callback...call it and pass data
-    if(callback){
-      callback(data);
-    }
-  // if (clear === true) parentElement.innerHTML = "";
-  // list.map((item) => {
-  //   const itemHtml = templateFn(item);
-  //   parentElement.insertAdjacentHTML(position, itemHtml);
-  // })
+export async function renderWithTemplate(
+  templateFn,
+  parentElement,
+  data,
+  position = "afterbegin",
+  clear = false,
+) {
+  if (clear === true) parentElement.innerHTML = "";
+  const itemHtml = await templateFn(data);
+  parentElement.insertAdjacentHTML(position, itemHtml.innerHTML);
 }
 
-export async function loadHeaderFooter(path){
-    const html = await fetch(path.text).then(convertToText);
-    const template = document.createElement("template");
-    template.innerHTML = html;
-    return template
+export async function loadHeaderFooter() {
+  const header = getElement("#main-header");
+  const headerPath = "/partials/header.html";
+  const footer = getElement("#main-footer");
+  const footerPath = "/partials/footer.html";
+  const promises = [];
+  promises.push(renderWithTemplate(loadTemplate, header, headerPath));
+  promises.push(renderWithTemplate(loadTemplate, footer, footerPath));
+  await Promise.all(promises);
+  displayCartItemsNotification();
+}
 
-  // const res = await fetch(path);
-  // const template = await res.text();
-  // return template;
+export async function loadTemplate(path) {
+  const req = await fetch(path);
+  const html = await req.text();
+  const template = document.createElement("template");
+  template.innerHTML = html;
+  return template;
+}
+
+export function getElement(query) {
+  return document.querySelector(query);
 }
 

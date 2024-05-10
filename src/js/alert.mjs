@@ -12,7 +12,7 @@ export default class Alert{
     }
 
     creatAlertMessage(data){
-        const main = document.querySelector(".divider")
+        const main = document.querySelector("main")
         const section = document.createElement("section")
         section.setAttribute("class", "alert-list");
         data.forEach(element => {
