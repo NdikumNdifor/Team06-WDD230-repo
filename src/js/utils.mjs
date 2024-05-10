@@ -1,3 +1,5 @@
+import { displayCartItemsNotification } from "./cartSuperScript"
+
 // wrapper for querySelector...returns matching element
 export function qs(selector, parent = document) {
   return parent.querySelector(selector);
@@ -44,5 +46,41 @@ export function renderListWithTemplate(templateFn, parentElement, list, position
     const itemHtml = templateFn(item);
     parentElement.insertAdjacentHTML(position, itemHtml);
   })
+}
+
+export async function renderWithTemplate(
+  templateFn,
+  parentElement,
+  data,
+  position = "afterbegin",
+  clear = false,
+) {
+  if (clear === true) parentElement.innerHTML = "";
+  const itemHtml = await templateFn(data);
+  parentElement.insertAdjacentHTML(position, itemHtml.innerHTML);
+}
+
+export async function loadHeaderFooter() {
+  const header = getElement("#main-header");
+  const headerPath = "/partials/header.html";
+  const footer = getElement("#main-footer");
+  const footerPath = "/partials/footer.html";
+  const promises = [];
+  promises.push(renderWithTemplate(loadTemplate, header, headerPath));
+  promises.push(renderWithTemplate(loadTemplate, footer, footerPath));
+  await Promise.all(promises);
+  displayCartItemsNotification();
+}
+
+export async function loadTemplate(path) {
+  const req = await fetch(path);
+  const html = await req.text();
+  const template = document.createElement("template");
+  template.innerHTML = html;
+  return template;
+}
+
+export function getElement(query) {
+  return document.querySelector(query);
 }
 
