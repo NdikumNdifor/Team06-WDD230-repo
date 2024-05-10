@@ -1,13 +1,15 @@
 import { getLocalStorage, setLocalStorage, displayDiscount } from "./utils.mjs";
+import ProductData from "./ProductData.mjs";
+
+const productData = new ProductData();
 
 export default class ProductDetail {
-  constructor(productId, dataSource) {
+  constructor(productId) {
     this.productId = productId;
     this.product = {};
-    this.dataSource = dataSource;
   }
   async init() {
-    this.product = await this.dataSource.findProductById(this.productId);
+    this.product = await productData.findProductById(this.productId);
   }
   
   addProductToCart(product) {
@@ -27,7 +29,7 @@ export default class ProductDetail {
 
         <img
           class="divider"
-          src="${this.product.Image}"
+          src="${this.product.Images.PrimaryLarge}"
           alt="${this.product.NameWithoutBrand}"
         />
 
