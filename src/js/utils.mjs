@@ -46,3 +46,30 @@ export function renderListWithTemplate(templateFn, parentElement, list, position
   })
 }
 
+//  DYNAMIC HEADER AND FOOTER 
+
+// function to take an optional object and a template and insert the objects as HTML into the DOM
+export function renderWithTemplate(templateFn, parentElement, data, callback) {
+    parentElement.insertAdjacentHTML("afterbegin", templateFn);
+    //if there is a callback...call it and pass data
+    if(callback){
+      callback(data);
+    }
+  // if (clear === true) parentElement.innerHTML = "";
+  // list.map((item) => {
+  //   const itemHtml = templateFn(item);
+  //   parentElement.insertAdjacentHTML(position, itemHtml);
+  // })
+}
+
+export async function loadHeaderFooter(path){
+    const html = await fetch(path.text).then(convertToText);
+    const template = document.createElement("template");
+    template.innerHTML = html;
+    return template
+
+  // const res = await fetch(path);
+  // const template = await res.text();
+  // return template;
+}
+
