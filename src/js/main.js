@@ -1,12 +1,11 @@
-import ProductData from "./ProductData.mjs";
-import ProductIconData from "./ProductIconData.mjs"
+import LocalData from "./LocalData.mjs"
 import ProductIconListing from "./ProductIconListing.mjs";
 import Alert from "./alert.mjs";
 import { loadHeaderFooter } from "./utils.mjs"
 
 const main = async () => {
   const category = "icons";
-  const dataSource = new ProductIconData(category);
+  const dataSource = new LocalData(category);
   const listElement = document.querySelector(".product-list")
   const iconList = new ProductIconListing(dataSource, listElement);
   await iconList.init();
@@ -14,7 +13,7 @@ const main = async () => {
   iconList.renderList(icons);
 
 
-  const dataSource1 = new ProductData("alerts")
+  const dataSource1 = new LocalData("alerts")
   const alerts = new Alert("alerts", dataSource1)
   alerts.init();
   await loadHeaderFooter();
