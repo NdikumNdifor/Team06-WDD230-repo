@@ -215,6 +215,22 @@ button {
   grid-column: 3;
 }
 
+.product-category-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  padding: .25rem;
+  gap: 1rem;
+}
+
+.product-category {
+  text-decoration: none;
+  color: var(--dark-grey)
+}
+
+.product-category-title {
+  text-align: center;
+}
+
 @media screen and (min-width: 500px) {
   body {
     max-width: 1080px;
