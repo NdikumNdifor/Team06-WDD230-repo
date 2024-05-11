@@ -72,12 +72,33 @@ function removeItemClickHandlder(event) {
 function calculateTotalPrice() {
   const cartItems = getCartItems();
   if (cartItems != null || cartItems != undefined){
-    const totalPrice = cartItems.reduce((acc, item) => acc + item.FinalPrice, 0);
+    const totalPrice = cartItems.reduce((acc, item) => acc + item.FinalPrice * item.Quantity, 0);
     document.getElementById("cart-total").textContent = `$${totalPrice}`;
   }
   else{
     document.getElementById("cart-total").textContent = `$0.00`;
   }
+}
+
+//handle new selected item quantity
+function updateItemQuantityHandler(event){
+  let prodId = event.target.id;
+  let newQuantity = parseInt(event.target.value);
+  updateQuantity(prodId, newQuantity);
+}
+
+function updateQuantity(id, newQuantity){
+  let cartItems = getCartItems();
+  let newItemsArray = cartItems.map(item =>{
+    if (item.Id == id){
+      item.Quantity = newQuantity;
+    }
+    return item;
+  });
+  setLocalStorage("so-cart", newItemsArray);
+  shoppingCart.getItems();
+  shoppingCart.renderItems();
+  calculateTotalPrice();
 }
 
 async function main() {
@@ -88,6 +109,8 @@ async function main() {
   document
   .querySelector(".product-list")
   .addEventListener("click", removeItemClickHandlder);
+  document.querySelector(".product-list")
+  .addEventListener("change", updateItemQuantityHandler);
 }
 
 const productListElement = document.querySelector(".product-list");
