@@ -80,6 +80,10 @@ export async function loadTemplate(path) {
   return template;
 }
 
+export function capitalizeFirstLetterInString(string){
+  return string.charAt(0).toUpperCase() + string.slice(1);
+}
+
 export function getElement(query) {
   return document.querySelector(query);
 }

@@ -4,9 +4,9 @@ import { renderListWithTemplate, displayDiscount } from "./utils.mjs"
 const productCardTemplate = (product) => 
   `
           <li class="product-card">
-            <a href="product_pages/index.html?product=${product.Id}">
+            <a href="../product_pages/index.html?product=${product.Id}">
               <img
-                src="${product.Image}"
+                src="${product.Images.PrimaryMedium}"
                 alt="${product.Name}"
               />
               <h3 class="card__brand">${product.Brand.Name}</h3>
@@ -24,7 +24,7 @@ export default class ProductListing {
   }
 
   async init() {
-    this.data = await this.datasource.getData();
+    this.data = await this.datasource.getData(this.category);
   }
 
   get products() {
