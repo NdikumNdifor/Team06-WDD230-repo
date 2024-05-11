@@ -12,7 +12,7 @@ const cartItemTemplate = (item) => `
       <h2 class="card__name">${item.Name}</h2>
     </a>
     <p class="cart-card__color">${item.Colors[0].ColorName}</p>
-    <p class="cart-card__quantity"><span>qty: 1</span><button id="${item.Id}" class="delete-button">X</button></p>
+    <p class="cart-card__quantity"><span>qty: ${item.Quantity}</span><button id="${item.Id}" class="delete-button">X</button></p>
     <p class="cart-card__price">$${item.FinalPrice}</p>
   </li>
 `

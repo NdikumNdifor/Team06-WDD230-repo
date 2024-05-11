@@ -72,7 +72,7 @@ function removeItemClickHandlder(event) {
 function calculateTotalPrice() {
   const cartItems = getCartItems();
   if (cartItems != null || cartItems != undefined){
-    const totalPrice = cartItems.reduce((acc, item) => acc + item.FinalPrice, 0);
+    const totalPrice = cartItems.reduce((acc, item) => acc + item.FinalPrice * item.Quantity, 0);
     document.getElementById("cart-total").textContent = `$${totalPrice}`;
   }
   else{
