@@ -12,8 +12,10 @@ const main = async () => {
   if (category == "tents"){
     const topFourTentIds = ["880RR", "985RF", "985PR", "344YJ"];
     const topFourTents = items.filter((product) => topFourTentIds.includes(product.Id))
+    displayBreadcrumb(category,topFourTents.length)
     productList.renderList(topFourTents)
   } else {
+    displayBreadcrumb(category,items.length)
     productList.renderList(items);
   }
   addDynamicTitle(category)
@@ -21,8 +23,14 @@ const main = async () => {
 }
 
 function addDynamicTitle(category){
-    const listElement = document.querySelector(".product-title");
-    listElement.innerHTML = `Top Products: ${capitalizeFirstLetterInString(category)}`
+    const headerElement = document.querySelector(".product-title");
+    headerElement.innerHTML = `Top Products: ${capitalizeFirstLetterInString(category)}`
+}
+
+function displayBreadcrumb(category, listLength){
+    const breadcrumbElement = document.querySelector(".breadcrumb")
+    breadcrumbElement.innerHTML = `${capitalizeFirstLetterInString(category)} ->(${listLength} items)`
+    breadcrumbElement.style.textAlign = "right"
 }
 
 main();
