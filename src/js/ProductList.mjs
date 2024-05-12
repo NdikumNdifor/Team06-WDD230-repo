@@ -17,15 +17,14 @@ const productCardTemplate = (product) =>
   `;
 
 export default class ProductListing {
-  constructor(category, datasource, listElement) {
-    this.category = category;
-    this.datasource = datasource;
+  constructor(products, listElement) {
+    this.data = products;
     this.listElement = listElement;
   }
 
-  async init() {
-    this.data = await this.datasource.getData(this.category);
-  }
+  // async init() {
+  //   this.data = await this.datasource.getData(this.category);
+  // }
 
   get products() {
     return this.data;
