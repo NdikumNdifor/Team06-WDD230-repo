@@ -1,5 +1,9 @@
-import { getLocalStorage, setLocalStorage, loadHeaderFooter } from "./utils.mjs";
-import { ShoppingCart } from "./ShoppingCart.mjs"
+import {
+  getLocalStorage,
+  setLocalStorage,
+  loadHeaderFooter,
+} from "./utils.mjs";
+import { ShoppingCart } from "./ShoppingCart.mjs";
 
 // Returns shopping cart items.
 function getCartItems() {
@@ -12,7 +16,7 @@ function getCartItems() {
 //   cartItems === null || cartItems.length === 0
 //     ? emptyCart()
 //     : displayCart(cartItems);
-  
+
 // }
 
 //display an empty cart's message
@@ -71,26 +75,28 @@ function removeItemClickHandlder(event) {
 //Add up the total and pass it to the html cart-total
 function calculateTotalPrice() {
   const cartItems = getCartItems();
-  if (cartItems != null || cartItems != undefined){
-    const totalPrice = cartItems.reduce((acc, item) => acc + item.FinalPrice * item.Quantity, 0);
+  if (cartItems != null || cartItems != undefined) {
+    const totalPrice = cartItems.reduce(
+      (acc, item) => acc + item.FinalPrice * item.Quantity,
+      0,
+    );
     document.getElementById("cart-total").textContent = `$${totalPrice}`;
-  }
-  else{
+  } else {
     document.getElementById("cart-total").textContent = `$0.00`;
   }
 }
 
 //handle new selected item quantity
-function updateItemQuantityHandler(event){
+function updateItemQuantityHandler(event) {
   let prodId = event.target.id;
   let newQuantity = parseInt(event.target.value);
   updateQuantity(prodId, newQuantity);
 }
 
-function updateQuantity(id, newQuantity){
+function updateQuantity(id, newQuantity) {
   let cartItems = getCartItems();
-  let newItemsArray = cartItems.map(item =>{
-    if (item.Id == id){
+  let newItemsArray = cartItems.map((item) => {
+    if (item.Id == id) {
       item.Quantity = newQuantity;
     }
     return item;
@@ -107,12 +113,13 @@ async function main() {
   calculateTotalPrice();
   // Adds event listener to product list element.
   document
-  .querySelector(".product-list")
-  .addEventListener("click", removeItemClickHandlder);
-  document.querySelector(".product-list")
-  .addEventListener("change", updateItemQuantityHandler);
+    .querySelector(".product-list")
+    .addEventListener("click", removeItemClickHandlder);
+  document
+    .querySelector(".product-list")
+    .addEventListener("change", updateItemQuantityHandler);
 }
 
 const productListElement = document.querySelector(".product-list");
-const shoppingCart = new ShoppingCart("so-cart", productListElement)
+const shoppingCart = new ShoppingCart("so-cart", productListElement);
 main();
