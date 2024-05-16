@@ -1,4 +1,5 @@
 import { displayCartItemsNotification } from "./cartSuperScript"
+import { initializeSearchBar } from "./SearchBar";
 
 // wrapper for querySelector...returns matching element
 export function qs(selector, parent = document) {
@@ -70,6 +71,7 @@ export async function loadHeaderFooter() {
   promises.push(renderWithTemplate(loadTemplate, footer, footerPath));
   await Promise.all(promises);
   displayCartItemsNotification();
+  initializeSearchBar();
 }
 
 export async function loadTemplate(path) {
@@ -78,6 +80,10 @@ export async function loadTemplate(path) {
   const template = document.createElement("template");
   template.innerHTML = html;
   return template;
+}
+
+export function capitalizeFirstLetterInString(string){
+  return string.charAt(0).toUpperCase() + string.slice(1);
 }
 
 export function getElement(query) {

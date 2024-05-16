@@ -6,7 +6,7 @@ export default class Alert{
     }
 
     async init(){
-        const data = await this.dataSource.getData();
+        const data = await this.dataSource.getData(this.category);
 
         this.creatAlertMessage(data);
     }

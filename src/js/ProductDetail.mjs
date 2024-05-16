@@ -12,14 +12,30 @@ export default class ProductDetail {
   
   addProductToCart(product) {
   let customerCart = getLocalStorage("so-cart");
+  
+  //spreading product into product for adding quantity key-value pair
+  product = {...product, Quantity: 1};
+  
+  //pushing product into cart
   if (customerCart == null) {
     customerCart = [];
     customerCart.push(product);
-  } else {
-    customerCart.push(product);
+  } 
+  else {
+    let update = false;
+    customerCart.map(item => {
+      if(item.Id == product.Id){
+        item.Quantity += 1;
+        update = true;
+      }
+    });
+    if(!update){
+      customerCart.push(product);
+    }
   }
   setLocalStorage("so-cart", customerCart);
-}
+  }
+
   renderProductDetails() {
     return `<h3>${this.product.Brand.Name}</h3>
 
@@ -27,7 +43,7 @@ export default class ProductDetail {
 
         <img
           class="divider"
-          src="${this.product.Image}"
+          src="${this.product.Images.PrimaryLarge}"
           alt="${this.product.NameWithoutBrand}"
         />
 
