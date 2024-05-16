@@ -4,8 +4,9 @@ import ProductData from "./ProductData.mjs";
 import {loadHeaderFooter} from "./utils.mjs";
 
 const productId = getParams("product");
-const dataSource = new ProductData("tents");
-const productDetail = new ProductDetail(productId, dataSource);
+// const productData = new productData()
+const dataSource = new ProductData(productId);
+const productDetail = new ProductDetail(productId);
 
 async function main() {
   await loadHeaderFooter();

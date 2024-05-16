@@ -4,9 +4,9 @@ import { renderListWithTemplate, displayDiscount } from "./utils.mjs"
 const productCardTemplate = (product) => 
   `
           <li class="product-card">
-            <a href="product_pages/index.html?product=${product.Id}">
+            <a href="/product_pages/index.html?product=${product.Id}">
               <img
-                src="${product.Image}"
+                src="${product.Images.PrimaryMedium}"
                 alt="${product.Name}"
               />
               <h3 class="card__brand">${product.Brand.Name}</h3>
@@ -17,22 +17,34 @@ const productCardTemplate = (product) =>
   `;
 
 export default class ProductListing {
-  constructor(category, datasource, listElement) {
+  constructor(category, dataSource, listElement) {
     this.category = category;
-    this.datasource = datasource;
+    this.dataSource = dataSource;
     this.listElement = listElement;
   }
 
   async init() {
-    this.data = await this.datasource.getData();
+    this.data = await this.dataSource.getData(this.category);
+    // const list = await this.dataSource.getData(this.category);
+    // render the list
+    this.renderList(this.data);
+    // this.data = await this.datasource.getData();
+
+    // this.searchProduct(this.data);
+    
   }
 
-  get products() {
+  getProducts() {
     return this.data;
   }
 
   renderList(list) {
+    this.listElement.innerHTML = '';
     renderListWithTemplate(productCardTemplate, this.listElement, list); 
   }
+
+  
+
+
 }
 

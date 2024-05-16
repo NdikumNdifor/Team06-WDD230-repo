@@ -84,3 +84,9 @@ export function getElement(query) {
   return document.querySelector(query);
 }
 
+export async function capitalizingAString(string){
+  return string.charAt(0).toUpperCase() + string.slice(1);
+}
+
+
+
