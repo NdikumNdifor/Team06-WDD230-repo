@@ -58,16 +58,15 @@
     </header>
 
     <main class="divider checkout">
-      <section>
+      <div>
         <h2>Review & Place your Order</h2>
-        <div>
           <form method="POST" action="http://wdd330-backend.onrender.com/checkout">
             <fieldset>
               <legend>Personal data</legend>
               <label for="fname">Name</label>
-              <input id="fname" type="text" name="fname" placeholder="First Name" required>
+              <input id="fname" type="text" name="fname" placeholder="John" required>
               <label for="sname">Surname</label>
-              <input id="sname" type="text" name="sname" placeholder="Last Name" required>
+              <input id="sname" type="text" name="sname" placeholder="Doe" required>
               <label for="address">Address</label>
               <input id="address" type="text" name="addr" placeholder="Street Address" required>
               <label for="city">City</label>
@@ -80,7 +79,7 @@
             <fieldset>
               <legend>Payment</legend>
               <label for="card">Credit Card Number</label>
-              <input type="text" id="card" name="card" required>
+              <input type="text" id="card" name="card" placeholder="1234 1234 1234 1234">
               <label for="exp">Expiration Date</label>
               <input type="text" id="exp" name="exp" placeholder="05/2030" required>
               <label for="cvv">Security Code (CVV)</label>
@@ -88,13 +87,10 @@
             </fieldset>
           </form>
         </div>
-        <div>
+        <div id="output">
           <p>Subtotal: <span id="subtotal"></span></p>
-          <p>Shipping Est.: <span id="shipping"></span></p>
-          <p>Tax (6%): <span id="tax"></span></p>
-          <p>Total: <span id="total"></span></p>
+          <p></p>
         </div>
-      </section>
 
     </main>
 

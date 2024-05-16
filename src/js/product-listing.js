@@ -1,8 +1,8 @@
-import ProductData from "./ProductData.mjs";
+import ExternalServices from "./ExternalServices.mjs";
 import ProductListing from "./ProductList.mjs"
 import { capitalizeFirstLetterInString, getElement, getParams, loadHeaderFooter } from "./utils.mjs"
 
-const dataSource = new ProductData();
+const dataSource = new ExternalServices();
 const listElement = document.querySelector(".product-list");
 
 const main = async () => {

@@ -1,10 +1,10 @@
 import { getParams } from "./utils.mjs";
 import ProductDetail from "./ProductDetail.mjs";
-import ProductData from "./ProductData.mjs";
+import ExternalServices from "./ExternalServices.mjs";
 import {loadHeaderFooter} from "./utils.mjs";
 
 const productId = getParams("product");
-const dataSource = new ProductData("tents");
+const dataSource = new ExternalServices("tents");
 const productDetail = new ProductDetail(productId, dataSource);
 
 async function main() {
