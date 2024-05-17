@@ -1,4 +1,4 @@
-import {calculateTotalPrice, getElement, getCartItems} from "./utils.mjs"
+import {calculateTotalPrice, getElement, getCartItems, setLocalStorage, alertMessage} from "./utils.mjs"
 import ExternalServices from "./ExternalServices.mjs"
 // takes the items currently stored in the cart (localstorage) and returns them in a simplified form.
 function packageItems(items) {
@@ -58,9 +58,23 @@ export class CheckoutProcess{
             shipping: shipping,
             tax: tax.toFixed(2)
         }
-        // call the checkout method in our ExternalServices module and send it our data object.
-        const response = await this.externalServices.checkout(orderObject)
-        console.log(response)
+        try{
+            // call the checkout method in our ExternalServices module and send it our data object.
+            const response = await this.externalServices.checkout(orderObject);
+            if(response.ok){
+                setLocalStorage("so-cart", []);
+                window.location.href="/index.html";
+                alert("Your purchase was sucessful!");
+            }
+            else{
+                let messages = await response.json();
+                for(let key in messages){
+                    alertMessage(messages[key]);
+                }
+            }
+        }catch (error){
+            console.log(error);
+        }
       }
 
     renderCheckoutSubtotal(){

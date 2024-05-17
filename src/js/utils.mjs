@@ -8,6 +8,29 @@ export function qs(selector, parent = document) {
 // or a more concise version if you are into that sort of thing:
 // export const qs = (selector, parent = document) => parent.querySelector(selector);
 
+export function alertMessage(message, scroll=true){
+  const mainElement = document.querySelector("main");
+
+  const messageError = document.createElement("div");
+  const close = document.createElement("span");
+  close.innerText = "X";
+  close.style.cursor = "pointer";
+
+  messageError.innerText = message;
+  messageError.style.backgroundColor = "#f0a868";
+  messageError.style.border = "1px solid #ff871f";
+  messageError.style.marginTop = ".5rem";
+  messageError.style.padding = ".5rem";
+
+  messageError.append(close);
+
+  close.addEventListener("click", e=>messageError.remove());
+  close.style.float = "right";
+
+  mainElement.prepend(messageError);
+
+}
+
 // retrieve data from localstorage
 export function getLocalStorage(key) {
   return JSON.parse(localStorage.getItem(key));
