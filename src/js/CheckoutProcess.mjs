@@ -7,7 +7,7 @@ function packageItems(items) {
     const returnItem = {
         id: item.Id,
         name: item.Name,
-        price: item.FinalPrice,
+        price: parseFloat(item.FinalPrice.toFixed(2)),
         quantity: item.Quantity 
     }
     return returnItem
@@ -43,7 +43,7 @@ export class CheckoutProcess{
         // build the data object from the calculated fields, the items in the cart, and the information entered into the form
         const formJSON = formDataToJSON(form)
         const orderObject = {
-            orderDate: new Date().toUTCString(),
+            orderDate: new Date(),
             fname: formJSON.fname,
             lname: formJSON.lname,
             street: formJSON.street,
@@ -56,7 +56,7 @@ export class CheckoutProcess{
             items: packageItems(getCartItems()),
             orderTotal: total,
             shipping: shipping,
-            tax: tax.toString()
+            tax: tax.toFixed(2)
         }
         // call the checkout method in our ExternalServices module and send it our data object.
         const response = await this.externalServices.checkout(orderObject)

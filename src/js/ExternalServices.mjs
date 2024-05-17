@@ -1,5 +1,4 @@
 const baseURL = import.meta.env.VITE_SERVER_URL;
-const postURL = "http://server-nodejs.cit.byui.edu:3000/"
 
 function convertToJson(res) {
   if (res.ok) {
@@ -43,6 +42,7 @@ export default class ExternalServices {
       },
       body: JSON.stringify(orderObject)
     }
-    return fetch(postURL + "checkout/", options)
+    return fetch(baseURL + "checkout/", options)
+    // return fetch("https://wdd330-backend.onrender.com:3000/checkout", options);
   }
 }
