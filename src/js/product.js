@@ -1,6 +1,6 @@
 import { getParams } from "./utils.mjs";
 import ProductDetail from "./ProductDetail.mjs";
-import ProductData from "./ProductData.mjs";
+import ProductData from "./ExternalServices.mjs";
 import { loadHeaderFooter } from "./utils.mjs";
 
 const productId = getParams("product");
