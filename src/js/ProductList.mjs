@@ -30,17 +30,33 @@ export default class ProductListing {
     this.renderList(this.data);
     // this.data = await this.datasource.getData();
 
-    // this.searchProduct(this.data);
+    this.searchProduct(this.data);
     
   }
 
-  getProducts() {
+  get Products() {
     return this.data;
   }
 
   renderList(list) {
     this.listElement.innerHTML = '';
     renderListWithTemplate(productCardTemplate, this.listElement, list); 
+  }
+
+  
+  searchProduct(list) {
+    const searchBar = document.querySelector("#searchBar");
+    searchBar.addEventListener("keyup", (e) => {
+      const searchString = e.target.value.toLowerCase();
+      const filteredProducts = list.filter( (product) =>{
+        return(
+          product.Name.toLowerCase().includes(searchString) ||
+          product.NameWithoutBrand.toLowerCase().includes(searchString)
+        )
+      });
+      renderListWithTemplate(productCardTemplate, this.listElement, filteredProducts);
+  
+    })
   }
 
   

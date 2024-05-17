@@ -3,17 +3,17 @@ import ProductListing from "./ProductList.mjs"
 import { loadHeaderFooter, getParams, capitalizingAString} from "./utils.mjs"
 
 
-
 const main = async () => {
 
-  const category =  getParams("category");
+  const category = getParams("category");
   // console.log(category);
   const dataSource = new ProductData(category);
   const listElement = document.querySelector(".product-list");
   const productList = new ProductListing(category, dataSource, listElement);
   await productList.init();
 
-  productList.renderList(productList.data);
+
+  // productList.renderList(productList.data);
 
   
 //   const tents = productList.products;
@@ -22,21 +22,18 @@ const main = async () => {
 //   productList.renderList(topFourTents);
 
 
-//   const dataSource1 = new ProductData("alerts")
-//   const alerts = new Alert("alerts", dataSource1)
-//   alerts.init();
+  const dataSource1 = new ProductData("alerts")
+  const alerts = new Alert("alerts", dataSource1)
+  alerts.init();
+  
  dynamicProductTitle(category);
  await loadHeaderFooter();
-
-
 
 }
 
 function dynamicProductTitle(category){
   const listElement = document.querySelector(".title");
-  listElement.textContent =  `Top Products: ${capitalizingAString(category)}`;
+  listElement.textContent =   `Top Products: ${capitalizingAString(category)}`;
 }
-
-
 
 main();
