@@ -1,4 +1,29 @@
 import {calculateTotalPrice, getElement, getCartItems} from "./utils.mjs"
+import ExternalServices from "./ExternalServices.mjs"
+// takes the items currently stored in the cart (localstorage) and returns them in a simplified form.
+function packageItems(items) {
+    // convert the list of products from localStorage to the simpler form required for the checkout process. Array.map would be perfect for this.
+    return items.map((item)=>{
+    const returnItem = {
+        id: item.Id,
+        name: item.Name,
+        price: item.FinalPrice,
+        quantity: item.Quantity 
+    }
+    return returnItem
+    })
+}
+
+function formDataToJSON(formElement) {
+    const formData = new FormData(formElement),
+      convertedJSON = {};
+  
+    formData.forEach(function (value, key) {
+      convertedJSON[key] = value;
+    });
+  
+    return convertedJSON;
+  }
 export class CheckoutProcess{
     constructor(){
         this.init()
@@ -7,8 +32,36 @@ export class CheckoutProcess{
     init(){
         this.subtotal = calculateTotalPrice();
         this.itemCount = getCartItems().length;
+        this.externalServices = new ExternalServices();
 
     }
+
+    async checkout(form) {
+        const tax = parseFloat((this.subtotal * 0.06).toFixed(2))
+        const shipping = parseFloat(10 + ((this.itemCount - 1) * 2))
+        const total = (this.subtotal + tax + shipping).toFixed(2)
+        // build the data object from the calculated fields, the items in the cart, and the information entered into the form
+        const formJSON = formDataToJSON(form)
+        const orderObject = {
+            orderDate: new Date().toUTCString(),
+            fname: formJSON.fname,
+            lname: formJSON.lname,
+            street: formJSON.street,
+            city: formJSON.city,
+            state: formJSON.state,
+            zip: formJSON.zip,
+            cardNumber: formJSON.cardNumber,
+            expiration: formJSON.expiration,
+            code: formJSON.code,
+            items: packageItems(getCartItems()),
+            orderTotal: total,
+            shipping: shipping,
+            tax: tax.toString()
+        }
+        // call the checkout method in our ExternalServices module and send it our data object.
+        const response = await this.externalServices.checkout(orderObject)
+        console.log(response)
+      }
 
     renderCheckoutSubtotal(){
         const element = getElement(".subtotal");
