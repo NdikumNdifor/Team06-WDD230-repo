@@ -1,5 +1,27 @@
 import { getLocalStorage } from "./utils.mjs";
 
+function packageItems(items){
+    let newList = items.map(item =>{
+        return{
+            "id": item.Id,
+            "name": item.Name,
+            "price": parseFloat(item.FinalPrice),
+            "quantity": parseInt(item.Quantity)
+        }
+    });
+    return newList;
+  }
+
+  function formDataToJSON(formElement){
+    const formData = new FormData(formElement);
+    let convertedJSON = {};
+    formData.forEach((value, key) =>{
+        convertedJSON[key] = value;
+    });
+
+    return convertedJSON;
+  }
+
 export default class CheckoutProcess {
     constructor(key, outputSelector) {
       this.key = key;
@@ -13,25 +35,13 @@ export default class CheckoutProcess {
 
     init() {
         this.list = getLocalStorage(this.key);
-        this.list = this.cleanList();
+        this.list = packageItems(this.list);
         this.calculateItemSummary();
-      }
-
-      cleanList(){
-        let newList = this.list.map(item =>{
-            return{
-                "id": item.Id,
-                "name": item.Name,
-                "price": parseFloat(item.FinalPrice),
-                "quantity": parseInt(item.Quantity)
-            }
-        });
-        return newList;
       }
 
       displayItemSummary(){
         document.querySelector("#output").innerHTML = 
-        `<p>Subtotal: <span id="subtotal">${this.itemTotal.toFixed(2)}</span></p>`;
+        `<p>Subtotal: <span id="subtotal">$${this.itemTotal.toFixed(2)}</span></p>`;
       }
     
       calculateItemSummary() {
@@ -52,8 +62,40 @@ export default class CheckoutProcess {
       displayOrderTotals() {
         // once the totals are all calculated display them in the order summary page
         document.querySelector("#output").innerHTML += 
-        `<p>Shipping Est.: ${this.shipping.toFixed(2)}</p>
-        <p>Tax (6%): ${this.tax.toFixed(2)}</p>
-        <p><strong>Total: ${this.orderTotal.toFixed(2)}</strong></p>`;
+        `<p>Shipping Est.: $${this.shipping.toFixed(2)}</p>
+        <p>Tax (6%): $${this.tax.toFixed(2)}</p>
+        <p><strong>Total: $${this.orderTotal.toFixed(2)}</strong></p>`;
+      }
+
+      checkoutHandler (formElement){
+        const formJSON = formDataToJSON(formElement);
+        let data ={
+            ...formJSON,
+            "orderDate":  new Date(),
+            "items":this.list,
+            "orderTotal": this.orderTotal,
+            "shipping": this.shipping,
+            "tax": this.tax
+        }
+        console.log(JSON.stringify(data));
+        this.checkout(data);
+      }
+
+      async checkout(order){
+        const url = "https://wdd330-backend.onrender.com:3000/checkout/";
+        const options = {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(order)
+        };
+        
+        try{
+            let response = await fetch(url, options);
+            return response;
+        } catch(error){
+            console.log(error);
+        }
       }
     }

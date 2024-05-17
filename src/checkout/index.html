@@ -65,10 +65,10 @@
               <legend>Personal data</legend>
               <label for="fname">Name</label>
               <input id="fname" type="text" name="fname" placeholder="John" required>
-              <label for="sname">Surname</label>
-              <input id="sname" type="text" name="sname" placeholder="Doe" required>
-              <label for="address">Address</label>
-              <input id="address" type="text" name="addr" placeholder="Street Address" required>
+              <label for="lname">Surname</label>
+              <input id="lname" type="text" name="lname" placeholder="Doe" required>
+              <label for="street">Street</label>
+              <input id="street" type="text" name="street" placeholder="Street Address" required>
               <label for="city">City</label>
               <input id="city" type="text" name="city" placeholder="City" required>
               <label for="state">State</label>
@@ -78,13 +78,14 @@
             </fieldset>
             <fieldset>
               <legend>Payment</legend>
-              <label for="card">Credit Card Number</label>
-              <input type="text" id="card" name="card" placeholder="1234 1234 1234 1234">
-              <label for="exp">Expiration Date</label>
-              <input type="text" id="exp" name="exp" placeholder="05/2030" required>
-              <label for="cvv">Security Code (CVV)</label>
-              <input type="number" id="cvv" name="cvv" placeholder="000" required>
+              <label for="cardNumber">Credit Card Number</label>
+              <input type="text" id="cardNumber" name="cardNumber" placeholder="1234 1234 1234 1234">
+              <label for="expiration">Expiration Date</label>
+              <input type="text" id="expiration" name="expiration" placeholder="05/2030" required>
+              <label for="code">Security Code (CVV)</label>
+              <input type="number" id="code" name="code" placeholder="000" required>
             </fieldset>
+            <button type="submit">Place your order</button>
           </form>
         </div>
         <div id="output">
