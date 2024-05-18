@@ -1,4 +1,4 @@
-import { getElement } from "./utils.mjs"
+import { getElement } from "./utils.mjs";
 
 export class SearchBar {
   constructor() {
@@ -12,8 +12,10 @@ export class SearchBar {
   }
 
   initializeListeners() {
-    this.input.addEventListener("keyup", (event) => this.handleInput(event.key));
-    this.button.addEventListener("click", () => this.searchValue())
+    this.input.addEventListener("keyup", (event) =>
+      this.handleInput(event.key),
+    );
+    this.button.addEventListener("click", () => this.searchValue());
   }
 
   handleInput(key) {
@@ -21,8 +23,10 @@ export class SearchBar {
   }
 
   searchValue() {
-    if(this.input.validity.valid)
-      window.location.assign(`/product-listing/index.html?search=${this.input.value}`);
+    if (this.input.validity.valid)
+      window.location.assign(
+        `/product-listing/index.html?search=${this.input.value}`,
+      );
   }
 }
 

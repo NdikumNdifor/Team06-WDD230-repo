@@ -50,9 +50,9 @@
               d="M60.1 71.4v3.3h-5.2v-3.4c-1.7-0.3-3.3-0.7-4.6-1 -0.9 6.8-1.1 13.3-0.3 14.5 0.4 0.3 2.9 1.1 8 1.1h0c5 0 8.8-0.7 9.7-1.3 0.8-1.3 0.6-7.7-0.4-14.4C65.5 70.5 62.7 71.1 60.1 71.4z"
             /> -->
 
-            <!-- <text x="0" y="115" fill="#000000" font-size="5px" font-weight="bold" font-family="'Helvetica Neue', Helvetica, Arial-Unicode, Arial, Sans-serif">Created by Natalia Woodroffe</text>
+      <!-- <text x="0" y="115" fill="#000000" font-size="5px" font-weight="bold" font-family="'Helvetica Neue', Helvetica, Arial-Unicode, Arial, Sans-serif">Created by Natalia Woodroffe</text>
             <text x="0" y="120" fill="#000000" font-size="5px" font-weight="bold" font-family="'Helvetica Neue', Helvetica, Arial-Unicode, Arial, Sans-serif">from the Noun Project</text> -->
-          <!-- </svg>
+      <!-- </svg>
         </a>
       </div> -->
     </header>
@@ -60,8 +60,34 @@
     <main class="divider">
       <section class="products">
         <h2>Review & Place your Order</h2>
+        <div class="summaryContainer">
+            <h3>Subtotal:</h3><div class="subtotal"></div>
+            <h3>Shipping Estimate:</h3><div class="shippingEstimate"></div>
+            <h3>Tax:</h3><div class="tax"></div>
+            <h3>Order Total:</h3><div class="orderTotal"></div> 
+        </div>
       </section>
-
+      <form class= "checkoutForm" action="">
+        <fieldset>
+          <legend>Customer Name</legend>
+          <label>First Name:* <input type="text" name="fname" id="fname" required></label>
+          <label>Last Name:* <input type="text" name="lname" id="lname" required></label>
+        </fieldset>
+        <fieldset>
+          <legend>Address</legend>
+          <label>Street Address:* <input type="text" name="street" id="streetAddress" required></label>
+          <label>City:* <input type="text" name="city" id="city" required></label>
+          <label>State:* <input type="text" name="state" id="state" required></label>
+          <label>Zipcode:* <input type="text" name="zip" id="zipcode" required></label>
+        </fieldset>
+        <fieldset>
+          <legend>Payment</legend>
+          <label>Credit Card Number:* <input type="text" name="cardNumber" id="cardNumber" value="1234123412341234" required></label>
+          <label>Expiration Date:* <input type="text" name="expiration" id="expiration" value="8/21" required></label>
+          <label>Security Code:* <input type="text" name="code" id="securityCode" value="123" required></label>
+        </fieldset>
+        <button class="purchaseButton">Purchase</button>
+      </form>
     </main>
 
     <footer id="main-footer"></footer>
