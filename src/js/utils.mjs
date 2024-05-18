@@ -108,3 +108,29 @@ export function calculateTotalPrice() {
   }
 }
 
+function getAlertTemplate(messge) {
+  return `
+      <aside class="notification flex space-between">
+        <p>${messge}</p>
+        <button>X</button>
+      </aside>`;
+}
+
+export function alertMessage(messsage, scroll = true) {
+  const main = qs("main");
+  const errorMessage = document.createElement("aside");
+  errorMessage.classList.add("notification");
+  errorMessage.innerHTML = getAlertTemplate(messsage);
+  const closeButton = qs("button", errorMessage);
+  closeButton.addEventListener("click", () => {
+    errorMessage.remove();
+  });
+  main.prepend(errorMessage);
+  if (scroll) {
+    window.scrollTo(0, 0);
+  }
+  setTimeout(() => {
+    errorMessage.remove();
+  }, 10000);
+}
+
