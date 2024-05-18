@@ -59,9 +59,21 @@ export class CheckoutProcess{
             tax: tax.toFixed(2)
         }
         // call the checkout method in our ExternalServices module and send it our data object.
-        const response = await this.externalServices.checkout(orderObject)
-        console.log(response)
+        try{
+            const response = await this.externalServices.checkout(orderObject);
+            setLocalStorage("so-cart", []);
+            location.assign("/checkout/success.html");
+            console.log(response);
+        }catch(error){
+            console.log(error)
+            removeAlerts();
+            for (let message in error.message) {
+                alertMessage(error.message[message]);
+            }
+
       }
+    
+    }
 
     renderCheckoutSubtotal(){
         const element = getElement(".subtotal");

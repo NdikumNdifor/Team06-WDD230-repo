@@ -19,7 +19,12 @@ zipInput.addEventListener("change", () => {
 
 formButton.addEventListener("click", (event) =>{
   event.preventDefault();
-  checkoutProcess.checkout(formElement);
+  const form = document.forms[0];
+  const check_status = form.checkFormValidity();
+  form.reportValidity();
+  if(check_status){
+    checkoutProcess.checkout(formElement);
+  }
 })
 
 main();
