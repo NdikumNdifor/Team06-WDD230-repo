@@ -90,10 +90,6 @@ export default class ProductDetail {
     }); 
   }
 
-  displayPreviewColorImageHandler(option, previewColorImages){
-    console.log(option);
-  }
-
   animateBackpack() {
     const backpackElement = document.querySelector(".cart svg");
     backpackElement.classList.remove("animateBackpack");
