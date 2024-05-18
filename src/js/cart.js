@@ -1,10 +1,14 @@
-import { getLocalStorage, setLocalStorage, loadHeaderFooter } from "./utils.mjs";
-import { ShoppingCart } from "./ShoppingCart.mjs"
+import {
+  getLocalStorage,
+  setLocalStorage,
+  loadHeaderFooter,
+  getCartItems,
+  calculateTotalPrice
+} from "./utils.mjs";
+import { ShoppingCart } from "./ShoppingCart.mjs";
 
 // Returns shopping cart items.
-function getCartItems() {
-  return getLocalStorage("so-cart");
-}
+
 
 //get cart from local storage and verify if exists[has any item]
 // function renderCartContents() {
@@ -12,7 +16,7 @@ function getCartItems() {
 //   cartItems === null || cartItems.length === 0
 //     ? emptyCart()
 //     : displayCart(cartItems);
-  
+
 // }
 
 //display an empty cart's message
@@ -57,6 +61,15 @@ function removeItem(item) {
   setLocalStorage("so-cart", newItemsArray);
 }
 
+function renderTotalPrice(){
+  const totalPrice = calculateTotalPrice()
+  if (totalPrice > 0){
+    document.getElementById("cart-total").textContent = `$${calculateTotalPrice()}`;
+  } else {
+    document.getElementById("cart-total").textContent = "$0.00";
+  }
+}
+
 // Handles remove item click event and verifies the that the delete button was clicked.
 function removeItemClickHandlder(event) {
   const element = event.target;
@@ -64,33 +77,21 @@ function removeItemClickHandlder(event) {
     removeItem(element.id);
     shoppingCart.getItems();
     shoppingCart.renderItems();
-    calculateTotalPrice();
-  }
-}
-
-//Add up the total and pass it to the html cart-total
-function calculateTotalPrice() {
-  const cartItems = getCartItems();
-  if (cartItems != null || cartItems != undefined){
-    const totalPrice = cartItems.reduce((acc, item) => acc + item.FinalPrice * item.Quantity, 0);
-    document.getElementById("cart-total").textContent = `$${totalPrice}`;
-  }
-  else{
-    document.getElementById("cart-total").textContent = `$0.00`;
+    renderTotalPrice()
   }
 }
 
 //handle new selected item quantity
-function updateItemQuantityHandler(event){
+function updateItemQuantityHandler(event) {
   let prodId = event.target.id;
   let newQuantity = parseInt(event.target.value);
   updateQuantity(prodId, newQuantity);
 }
 
-function updateQuantity(id, newQuantity){
+function updateQuantity(id, newQuantity) {
   let cartItems = getCartItems();
-  let newItemsArray = cartItems.map(item =>{
-    if (item.Id == id){
+  let newItemsArray = cartItems.map((item) => {
+    if (item.Id == id) {
       item.Quantity = newQuantity;
     }
     return item;
@@ -98,21 +99,24 @@ function updateQuantity(id, newQuantity){
   setLocalStorage("so-cart", newItemsArray);
   shoppingCart.getItems();
   shoppingCart.renderItems();
-  calculateTotalPrice();
+  renderTotalPrice()
 }
 
 async function main() {
   await loadHeaderFooter();
   shoppingCart.renderItems();
-  calculateTotalPrice();
+  renderTotalPrice();
   // Adds event listener to product list element.
   document
-  .querySelector(".product-list")
-  .addEventListener("click", removeItemClickHandlder);
-  document.querySelector(".product-list")
-  .addEventListener("change", updateItemQuantityHandler);
+    .querySelector(".product-list")
+    .addEventListener("click", removeItemClickHandlder);
+  document
+    .querySelector(".product-list")
+    .addEventListener("change", updateItemQuantityHandler);
 }
 
+
+
 const productListElement = document.querySelector(".product-list");
-const shoppingCart = new ShoppingCart("so-cart", productListElement)
+const shoppingCart = new ShoppingCart("so-cart", productListElement);
 main();
