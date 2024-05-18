@@ -1,21 +1,35 @@
 
-
-function newsletter() {
-    var email = document.getElementById("email").value;
-    var requiredSymbol = email.indexOf("@");
-    var emailIndex = email.lastIndexOf(".");
-    if (requiredSymbol < 1 || emailIndex < requiredSymbol + 2 || emailIndex + 2 >= email.length) {
-        alert("Not a valid e-mail address");
-        return false;
-    }
-    if (email === "") {
-        alert("Please enter your email address");
-        return false;
-    }
-    alert("Thank you for subscribing to our newsletter!");
+function emailIsValid(email) {
+  return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
 }
 
-newsletter();
+function displayThankYouMessage() {
+  const form = document.getElementById("newsletter-form");
+    form.innerHTML = "<h1>Thank you for subscribing!</h1>";
+}
+
+function displayErrorMessage() {
+  const form = document.getElementById("newsletter-form");
+  form.innerHTML = "<h1>Sorry, that is not a valid email address</h1>";
+}
+
+function handleSubmit(event) {
+  event.preventDefault();
+  const email = document.getElementById("email").value;
+
+  if (emailIsValid(email)) {
+    displayThankYouMessage();
+  } else {
+    displayErrorMessage();
+  }
+}
+
+document.getElementById("newsletter-form").addEventListener("submit", handleSubmit);
+
+
+
+
+
 
 
 
