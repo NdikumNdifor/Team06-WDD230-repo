@@ -34,6 +34,7 @@ export default class ProductDetail {
     }
   }
   setLocalStorage("so-cart", customerCart);
+  this.animateBackpack()
   alertMessage(`${this.product.NameWithoutBrand} added to cart!`);
   }
 
@@ -62,6 +63,15 @@ export default class ProductDetail {
       `;
 
     
+  }
+
+  animateBackpack() {
+    const backpackElement = document.querySelector(".cart svg");
+    backpackElement.classList.remove("animateBackpack");
+    void backpackElement.offsetWidth;
+    setTimeout(() => {
+        backpackElement.classList.add("animateBackpack");
+    }, 100);
   }
 }
 
