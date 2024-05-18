@@ -319,3 +319,34 @@ footer {
   font-size: var(--small-font);
   padding: 1em;
 }
+
+.alert{
+  position: relative;
+  background-color: #f0f0f0;
+  color: #333333;
+  border-color: #aaaaaa;
+}
+
+.alert span {
+  position: absolute;
+  top: 1px;
+  right: 5px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+@keyframes growShrink {
+  0% {
+      width: 25px;
+  }
+  50% {
+      width: 35px;
+  }
+  100% {
+      width: 25px;
+  }
+}
+
+.animateBackpack {
+  animation: growShrink 1s forwards;
+}
