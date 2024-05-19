@@ -166,6 +166,32 @@ button {
   width: 100%;
 }
 
+.product__color-container {
+  display: flex;
+  flex-direction: column;
+  width: 350px;
+  gap: 1rem;
+}
+
+.product__color-container img{
+  width: 100px;
+  height: 100px;
+  object-fit: cover;
+}
+
+.product__color-container select,
+.product__color-container option
+{
+  height: 42px;
+}
+
+.hidden{
+  display: none;
+}
+.show{
+  display: block;
+}
+
 /* Start cart list card styles */
 .cart-card {
   display: grid;

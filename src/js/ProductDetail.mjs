@@ -1,4 +1,4 @@
-import { getLocalStorage, setLocalStorage, displayDiscount, alertMessage } from "./utils.mjs";
+import { getLocalStorage, setLocalStorage, displayDiscount, alertMessage, displayColors, displayPreviewColors } from "./utils.mjs";
 
 export default class ProductDetail {
   constructor(productId, dataSource) {
@@ -12,9 +12,10 @@ export default class ProductDetail {
   
   addProductToCart(product) {
   let customerCart = getLocalStorage("so-cart");
+  let ColorCode = document.querySelector("#color").value;
   
   //spreading product into product for adding quantity key-value pair
-  product = {...product, Quantity: 1};
+  product = {...product, Quantity: 1, ColorCode: ColorCode};
   
   //pushing product into cart
   if (customerCart == null) {
@@ -51,7 +52,17 @@ export default class ProductDetail {
 
         ${displayDiscount(this.product)}
 
-        <p class="product__color">${this.product.Colors[0].ColorName}</p>
+        <div class="product__color-container"> 
+
+          <label class="product__color">Color:</label>
+          <select id="color" name="color">
+          ${displayColors(this.product)}
+          </select>
+
+          ${displayPreviewColors(this.product)}
+          
+        </div>
+
 
         <p class="product__description">
           ${this.product.DescriptionHtmlSimple}
@@ -63,6 +74,20 @@ export default class ProductDetail {
       `;
 
     
+  }
+
+  updatePreviewImage(event, previewColorImages){
+    let code = event.target.value;
+    previewColorImages.forEach(image=>{
+      if(!image.classList.contains("hidden")){
+        image.classList.add("hidden");
+        image.classList.remove("show");
+      }
+      if(image.id.substring(5,7) == code){
+        image.classList.remove("hidden");
+        image.classList.add("show");
+      }
+    }); 
   }
 
   animateBackpack() {

@@ -30,6 +30,21 @@ export function getParams(param) {
   return urlParams.get(param);
 }
 
+export function displayColors(product){
+  let options = "";
+  product.Colors.forEach(color=>{
+    options += `<option value=${color.ColorCode} ">${color.ColorName}></option>`;
+  });
+  return options;
+}
+
+export function displayPreviewColors(product){
+  let options = "";
+  product.Colors.forEach(color=>{
+    options += `<image id="color${color.ColorCode}" class="preview-color hidden" src="${color.ColorPreviewImageSrc}" alt="image of ${color.colorName}">`;
+  });
+  return options;
+}
 
 export function displayDiscount(product){
   if (product.SuggestedRetailPrice > product.FinalPrice){
