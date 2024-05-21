@@ -81,6 +81,12 @@ header {
   color: var(--tertiary-color);
 }
 
+.lookup-button {
+  background-color: #fff;
+  /* margin: 0; */
+  padding: 0;
+}
+
 button {
   padding: 0.5em 2em;
   background-color: var(--secondary-color);
@@ -272,6 +278,26 @@ button {
   gap: 1rem;
 }
 
+.modal-wrapper {
+  position: fixed;
+  background-color: rgba(208, 208, 208, 0.7);
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+}
+
+.modal-wrapper dialog {
+  max-width: 560px;
+}
+.modal-wrapper img {
+  margin: 0 auto;
+}
+
+.open {
+  display: none;
+}
+
 .newsletter{
   width:auto;
   height: auto; 
@@ -312,7 +338,6 @@ button {
   border-radius: 20px;
   padding-left: 20px;
   margin: 15px;
-}
 
 @media screen and (min-width: 500px) {
   body {
